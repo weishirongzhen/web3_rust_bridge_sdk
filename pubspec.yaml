@@ -1,7 +1,7 @@
 name: web3_rust_bridge_sdk
 description: "A new Flutter project."
 version: 0.0.1
-homepage:
+homepage: https://github.com/weishirongzhen/web3_rust_bridge_sdk
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
