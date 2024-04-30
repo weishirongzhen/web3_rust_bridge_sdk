@@ -8,6 +8,10 @@ class TransferUtil {
   TransferUtil._();
 
   /// 返回public转账需要的代理数据
+  /// 返回值
+  /// 0-> authorization
+  /// 1-> program
+  /// 2-> fee_authorization
   /// [amount] double值，实际值
   /// [priorityFee] min 0.28
   static Future<List<String>> generatePublicTransferDelegate({

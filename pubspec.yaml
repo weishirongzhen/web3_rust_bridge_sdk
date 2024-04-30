@@ -15,6 +15,7 @@ dependencies:
   convert: ^3.1.1
   pointycastle: ^3.7.4
   ed25519_edwards: ^0.3.1
+  bip39_mnemonic: ^3.0.6
 
 dev_dependencies:
   flutter_test:
