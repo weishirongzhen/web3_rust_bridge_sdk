@@ -1,5 +1,5 @@
 name: web3_rust_bridge_sdk
-description: "A new Flutter project."
+description: "A rust api wrapper for dart side"
 version: 0.0.1
 homepage: https://github.com/weishirongzhen/web3_rust_bridge_sdk
 
