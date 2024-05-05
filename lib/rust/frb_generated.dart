@@ -57,7 +57,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.0.0-dev.32';
 
   @override
-  int get rustContentHash => 1873357551;
+  int get rustContentHash => -1055553245;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -73,6 +73,12 @@ abstract class RustLibApi extends BaseApi {
       required double amountCredits,
       required String recipient,
       required double feeCredits,
+      dynamic hint});
+
+  Future<double> getPublicBalance(
+      {required String url,
+      required String networkId,
+      required String address,
       dynamic hint});
 
   String privateKeyFromSeed({required List<int> seed, dynamic hint});
@@ -130,6 +136,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   TaskConstMeta get kDelegateTransferPublicConstMeta => const TaskConstMeta(
         debugName: "delegate_transfer_public",
         argNames: ["privateKey", "amountCredits", "recipient", "feeCredits"],
+      );
+
+  @override
+  Future<double> getPublicBalance(
+      {required String url,
+      required String networkId,
+      required String address,
+      dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
+        final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_String(url, serializer);
+        sse_encode_String(networkId, serializer);
+        sse_encode_String(address, serializer);
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 6, port: port_);
+      },
+      codec: SseCodec(
+        decodeSuccessData: sse_decode_f_64,
+        decodeErrorData: null,
+      ),
+      constMeta: kGetPublicBalanceConstMeta,
+      argValues: [url, networkId, address],
+      apiImpl: this,
+      hint: hint,
+    ));
+  }
+
+  TaskConstMeta get kGetPublicBalanceConstMeta => const TaskConstMeta(
+        debugName: "get_public_balance",
+        argNames: ["url", "networkId", "address"],
       );
 
   @override
@@ -238,7 +275,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: () {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(name, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
+        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -262,7 +299,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 7, port: port_);
+            funcId: 8, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,

@@ -36,3 +36,11 @@ Future<List<String>> delegateTransferPublic(
         recipient: recipient,
         feeCredits: feeCredits,
         hint: hint);
+
+Future<double> getPublicBalance(
+        {required String url,
+        required String networkId,
+        required String address,
+        dynamic hint}) =>
+    RustLib.instance.api.getPublicBalance(
+        url: url, networkId: networkId, address: address, hint: hint);

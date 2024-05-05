@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:web3_rust_bridge_sdk/aleo/account.dart';
+import 'package:web3_rust_bridge_sdk/aleo/delegate_transaction_data.dart';
 import 'package:web3_rust_bridge_sdk/web3_rust_bridge_sdk.dart' as aleo;
+import 'package:http/http.dart' as http;
 
 import 'package:bip39_mnemonic/bip39_mnemonic.dart';
 
@@ -34,8 +39,6 @@ class _MyAppState extends State<MyApp> {
   bool transferring = false;
 
   String error = "";
-
-  int timeInSeconds = 0;
 
   @override
   void initState() {
@@ -81,6 +84,20 @@ class _MyAppState extends State<MyApp> {
                 "when transfering do not exit this screen, or else will transfer error, but you credits will be safe",
                 style: TextStyle(color: Colors.redAccent, fontSize: 12),
               ),
+              FutureBuilder(
+                  future: AleoAccount.getPublicAleoBalance(
+                      "aleo19jjmsrusvuduyxgufd7ax24p2sp73eedx0agky7tzfa0su66wcgqlmqz4x"),
+                  builder: (context, snapshot) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (snapshot.hasData)
+                          Text(
+                            "public balance of aleo19jjmsrusvuduyxgufd7ax24p2sp73eedx0agky7tzfa0su66wcgqlmqz4x = ${snapshot.data}",
+                          ),
+                      ],
+                    );
+                  }),
               Row(
                 children: [
                   ElevatedButton(
@@ -88,11 +105,18 @@ class _MyAppState extends State<MyApp> {
                         generateDelegateData();
                       },
                       child: const Text("生成代理证明信息")),
-                  if (transferring) const CircularProgressIndicator(),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        sendDelegateProof();
+                      },
+                      child: const Text("提交代理转账")),
                 ],
               ),
-              Text("delegate data = $delegateDataText"),
-              if (timeInSeconds != 0) Text("take = ${timeInSeconds ~/ 1000} s"),
+              if (transferring) const LinearProgressIndicator(),
+              Text("log = $delegateDataText"),
               if (error.isNotEmpty) Text("error = $error"),
             ],
           ),
@@ -130,10 +154,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void generateDelegateData() async {
-    final startTime = DateTime.now().millisecondsSinceEpoch;
     setState(() {
       transferring = true;
-      timeInSeconds = 0;
       delegateDataText = "waiting";
     });
 
@@ -151,11 +173,51 @@ class _MyAppState extends State<MyApp> {
         error = e.toString();
       }
     });
-    final endTime = DateTime.now().millisecondsSinceEpoch;
 
     setState(() {
       transferring = false;
-      timeInSeconds = endTime - startTime;
+    });
+  }
+
+  Future<void> sendDelegateProof() async {
+    setState(() {
+      delegateDataText = "广播中";
+      transferring = true;
+    });
+    AleoDelegateTransferData data =
+        await AleoAccount.generatePublicTransferDelegateData(
+      privateKey: privateKey0,
+      recipient:
+          'aleo19jjmsrusvuduyxgufd7ax24p2sp73eedx0agky7tzfa0su66wcgqlmqz4x',
+      amount: 0.01,
+    );
+
+    print("wtf data = ${data.authorization}");
+    print("wtf data = ${data.feeAuthorization}");
+    print("wtf data = ${data.program}");
+
+    var url = Uri.https('testnet3.aleorpc.com');
+    var response = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'jsonrpc': '2.0',
+          'id': 1,
+          'method': 'generateTransaction',
+          'function': "transfer_public",
+          'broadcast': true,
+          'imports': {},
+          'params': {
+            'authorization': data.authorization,
+            'fee_authorization': data.feeAuthorization,
+            'program': data.program,
+          }
+        }));
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    setState(() {
+      delegateDataText = response.body.toString();
+      transferring = false;
     });
   }
 }

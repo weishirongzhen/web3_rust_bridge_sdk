@@ -44,10 +44,12 @@ class AleoAccount {
     address = privateKeyToAddress(privateKey: privateKey);
   }
 
-  /// get data for rpc to broadcast public transfer
-  /// amount should be human readable, it will convert to real microCredit on rust side
-  /// fee should be human readable, it will convert to real microCredit on rust side
-  Future<AleoDelegateTransferData> getTransferPublicData({
+  /// generate data for rpc to broadcast public transfer
+  /// [privateKey] sender privateKey
+  /// [recipient] recipient address
+  /// [amount] double value, amount should be human readable, it will convert to real microCredit on rust side
+  /// [fee] fee should be human readable, it will convert to real microCredit on rust side
+  static Future<AleoDelegateTransferData> generatePublicTransferDelegateData({
     required String privateKey,
     required String recipient,
     required double amount,
@@ -68,8 +70,15 @@ class AleoAccount {
   }
 
   /// get public aleo balance
-  double getPublicAleoBalance(String address) {
-    // todo
-    return 0.0;
+  static Future<double> getPublicAleoBalance(
+    String address, {
+    String url = '',
+    String networkId = '',
+  }) async {
+    return getPublicBalance(
+      url: url,
+      networkId: networkId,
+      address: address,
+    );
   }
 }
