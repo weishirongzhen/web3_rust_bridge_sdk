@@ -21,7 +21,7 @@ class TransferUtil {
     double fee = 0.28,
   }) {
     try {
-      return aleo.delegateTransferPublic(
+      return aleo.generatePublicTransferDelegateData(
         privateKey: privateKey,
         amountCredits: amount,
         recipient: recipient,

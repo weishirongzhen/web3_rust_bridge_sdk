@@ -57,7 +57,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.0.0-dev.32';
 
   @override
-  int get rustContentHash => -1055553245;
+  int get rustContentHash => 466542519;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -68,7 +68,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
-  Future<List<String>> delegateTransferPublic(
+  Future<List<String>> generatePublicTransferDelegateData(
       {required String privateKey,
       required double amountCredits,
       required String recipient,
@@ -106,7 +106,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
-  Future<List<String>> delegateTransferPublic(
+  Future<List<String>> generatePublicTransferDelegateData(
       {required String privateKey,
       required double amountCredits,
       required String recipient,
@@ -126,15 +126,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         decodeSuccessData: sse_decode_list_String,
         decodeErrorData: null,
       ),
-      constMeta: kDelegateTransferPublicConstMeta,
+      constMeta: kGeneratePublicTransferDelegateDataConstMeta,
       argValues: [privateKey, amountCredits, recipient, feeCredits],
       apiImpl: this,
       hint: hint,
     ));
   }
 
-  TaskConstMeta get kDelegateTransferPublicConstMeta => const TaskConstMeta(
-        debugName: "delegate_transfer_public",
+  TaskConstMeta get kGeneratePublicTransferDelegateDataConstMeta =>
+      const TaskConstMeta(
+        debugName: "generate_public_transfer_delegate_data",
         argNames: ["privateKey", "amountCredits", "recipient", "feeCredits"],
       );
 

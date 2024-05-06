@@ -24,13 +24,13 @@ String signMessage(
     RustLib.instance.api.signMessage(
         messageBytes: messageBytes, privateKey: privateKey, hint: hint);
 
-Future<List<String>> delegateTransferPublic(
+Future<List<String>> generatePublicTransferDelegateData(
         {required String privateKey,
         required double amountCredits,
         required String recipient,
         required double feeCredits,
         dynamic hint}) =>
-    RustLib.instance.api.delegateTransferPublic(
+    RustLib.instance.api.generatePublicTransferDelegateData(
         privateKey: privateKey,
         amountCredits: amountCredits,
         recipient: recipient,

@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Frameworks/libcurl.a</key>
+		<data>
+		I5sSKK56pIOyjbzDxES3tKYgarE=
+		</data>
 		<key>Headers/rust_lib_web3_rust_bridge-umbrella.h</key>
 		<data>
 		VvvZgHqGj6EfR7qIfKHTTN5yx7o=
@@ -23,6 +27,13 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Frameworks/libcurl.a</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SSpHrpJ3wSJrnFoyEVu92tmOQp3uTwgDKk6eZpcUGuU=
+			</data>
+		</dict>
 		<key>Headers/rust_lib_web3_rust_bridge-umbrella.h</key>
 		<dict>
 			<key>hash2</key>
