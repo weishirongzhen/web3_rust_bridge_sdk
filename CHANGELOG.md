@@ -1,3 +1,7 @@
+## 0.0.3
+
+* delete unused method
+
 ## 0.0.2
 
 * api changes
