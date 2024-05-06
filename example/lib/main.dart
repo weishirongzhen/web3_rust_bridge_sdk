@@ -161,14 +161,13 @@ class _MyAppState extends State<MyApp> {
 
     await Future.delayed(const Duration(seconds: 1), () async {
       try {
-        delegateDataText =
-            (await aleo.TransferUtil.generatePublicTransferDelegate(
+        delegateDataText = (await aleo.AleoAccount.generatePublicTransfer(
           privateKey: privateKey0,
           recipient: recipient,
           amount: 0.10,
           fee: 0.28,
         ))
-                .join("\n");
+            .toString();
       } catch (e) {
         error = e.toString();
       }
@@ -185,7 +184,7 @@ class _MyAppState extends State<MyApp> {
       transferring = true;
     });
     AleoDelegateTransferData data =
-        await AleoAccount.generatePublicTransferDelegateData(
+        await AleoAccount.generatePublicTransfer(
       privateKey: privateKey0,
       recipient:
           'aleo19jjmsrusvuduyxgufd7ax24p2sp73eedx0agky7tzfa0su66wcgqlmqz4x',

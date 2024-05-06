@@ -1,6 +1,6 @@
 export 'rust/api/aleo.dart';
 export 'aleo/aleo_hd_key.dart';
-export 'aleo/transfer_util.dart';
+export 'aleo/account.dart';
 import 'package:web3_rust_bridge_sdk/rust/frb_generated.dart';
 
 import 'web3_rust_bridge_sdk_platform_interface.dart';

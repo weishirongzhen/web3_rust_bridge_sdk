@@ -8,4 +8,10 @@ class AleoDelegateTransferData {
     required this.feeAuthorization,
     required this.program,
   });
+
+  @override
+  String toString() {
+
+    return authorization + feeAuthorization + program;
+  }
 }

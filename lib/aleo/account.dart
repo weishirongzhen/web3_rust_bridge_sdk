@@ -49,14 +49,18 @@ class AleoAccount {
   /// [recipient] recipient address
   /// [amount] double value, amount should be human readable, it will convert to real microCredit on rust side
   /// [fee] fee should be human readable, it will convert to real microCredit on rust side
-  static Future<AleoDelegateTransferData> generatePublicTransferDelegateData({
+  static Future<AleoDelegateTransferData> generatePublicTransfer({
     required String privateKey,
     required String recipient,
     required double amount,
     double fee = 0.28,
   }) async {
-    final result = await TransferUtil.generatePublicTransferDelegate(
-        privateKey: privateKey, recipient: recipient, amount: amount);
+    final result = await generatePublicTransferDelegateData(
+      privateKey: privateKey,
+      recipient: recipient,
+      amountCredits: amount,
+      feeCredits: fee,
+    );
     return AleoDelegateTransferData.public(
       authorization: result[0],
       feeAuthorization: result[2],
