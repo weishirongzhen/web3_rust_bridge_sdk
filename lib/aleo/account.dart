@@ -74,7 +74,7 @@ class AleoAccount {
   }
 
   /// default public transfer is 0.28
-  double getPublicTransferFee() {
+  static double getPublicTransferFee() {
     return 0.28;
   }
 
