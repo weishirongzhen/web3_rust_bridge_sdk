@@ -1,3 +1,8 @@
+## 0.0.5
+
+*  public fee api change
+
+
 ## 0.0.4
 
 *  add AleoAccount params

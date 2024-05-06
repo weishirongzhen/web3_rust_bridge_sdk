@@ -1,6 +1,6 @@
 name: web3_rust_bridge_sdk
 description: "A rust api wrapper for dart side, currently include Aleo api."
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/weishirongzhen/web3_rust_bridge_sdk
 
 environment:
