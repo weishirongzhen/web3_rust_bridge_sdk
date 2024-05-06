@@ -1,3 +1,7 @@
+## 0.0.4
+
+*  add AleoAccount params
+
 ## 0.0.3
 
 * delete unused method

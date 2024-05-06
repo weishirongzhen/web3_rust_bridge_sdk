@@ -8,7 +8,8 @@ class AleoAccount {
   late String privateKey;
   late String viewKey;
   late String address;
-  late String? extendedPrivateKey;
+  late String extendedPrivateKey;
+  late String derivePath;
 
   /// AleoAccount from mnemonic
   /// accountIndex 0 for default account, next account index will be will 1
@@ -20,10 +21,11 @@ class AleoAccount {
     final seedHex = hex.encode(m.seed);
     extendedPrivateKey = seedHex;
     String path = "m/44'/0'/$accountIndex'/0'";
-    final keys = derivePath(path, seedHex);
+    final keys = deriveAleoPath(path, seedHex);
     privateKey = privateKeyFromSeed(seed: keys.key!);
     viewKey = privateKeyToViewKey(privateKey: privateKey);
     address = privateKeyToAddress(privateKey: privateKey);
+    derivePath = path;
   }
 
   /// AleoAccount from extended privateKey aka seed
@@ -33,15 +35,18 @@ class AleoAccount {
     int accountIndex = 0,
   }) {
     String path = "m/44'/0'/$accountIndex'/0'";
-    final keys = derivePath(path, extendedPrivateKey!);
+    final keys = deriveAleoPath(path, extendedPrivateKey);
     privateKey = privateKeyFromSeed(seed: keys.key!);
     viewKey = privateKeyToViewKey(privateKey: privateKey);
     address = privateKeyToAddress(privateKey: privateKey);
+    derivePath = path;
   }
 
   AleoAccount.fromPrivateKey(this.privateKey) {
+    extendedPrivateKey = '';
     viewKey = privateKeyToViewKey(privateKey: privateKey);
     address = privateKeyToAddress(privateKey: privateKey);
+    derivePath = '';
   }
 
   /// generate data for rpc to broadcast public transfer

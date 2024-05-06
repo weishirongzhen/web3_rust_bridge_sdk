@@ -72,7 +72,7 @@ bool isValidPath(String path) {
       .any((e) => int.tryParse(e) == null);
 }
 
- Keys derivePath(String path, String seed, {int offset = HARDENED_OFFSET}) {
+ Keys deriveAleoPath(String path, String seed, {int offset = HARDENED_OFFSET}) {
   if (!isValidPath(path)) {
     throw ArgumentError("Invalid derivation path");
   }

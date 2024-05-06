@@ -139,7 +139,7 @@ class _MyAppState extends State<MyApp> {
     final path = "m/44'/0'/$index'/0'";
     final m = Mnemonic.fromSentence(testMnemonic, Language.english);
     final seedHex = hex.encode(m.seed);
-    final keys = aleo.derivePath(path, seedHex);
+    final keys = aleo.deriveAleoPath(path, seedHex);
     return keys.key!;
   }
 
