@@ -1,3 +1,8 @@
+## 0.0.6
+
+*  add ios plugin config
+
+
 ## 0.0.5
 
 *  public fee api change

@@ -1,6 +1,6 @@
 name: web3_rust_bridge_sdk
 description: "A rust api wrapper for dart side, currently include Aleo api."
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/weishirongzhen/web3_rust_bridge_sdk
 
 environment:
@@ -44,6 +44,8 @@ flutter:
         pluginClass: Web3RustBridgeSdkPlugin
       ios:
         pluginClass: Web3RustBridgeSdkPlugin
+        vendored_frameworks:
+          - Frameworks/*.xcframework
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
