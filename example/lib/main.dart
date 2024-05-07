@@ -164,7 +164,7 @@ class _MyAppState extends State<MyApp> {
         delegateDataText = (await aleo.AleoAccount.generatePublicTransfer(
           privateKey: privateKey0,
           recipient: recipient,
-          amount: 0.10,
+          amount: 0.01112,
           fee: 0.28,
         ))
             .toString();
@@ -183,34 +183,36 @@ class _MyAppState extends State<MyApp> {
       delegateDataText = "广播中";
       transferring = true;
     });
-    AleoDelegateTransferData data =
-        await AleoAccount.generatePublicTransfer(
+    AleoDelegateTransferData data = await AleoAccount.generatePublicTransfer(
       privateKey: privateKey0,
       recipient:
           'aleo19jjmsrusvuduyxgufd7ax24p2sp73eedx0agky7tzfa0su66wcgqlmqz4x',
-      amount: 0.01,
+      amount: 0.02111,
     );
 
     print("wtf data = ${data.authorization}");
     print("wtf data = ${data.feeAuthorization}");
     print("wtf data = ${data.program}");
-
     var url = Uri.https('testnet3.aleorpc.com');
-    var response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
+    var response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(
+        {
           'jsonrpc': '2.0',
           'id': 1,
           'method': 'generateTransaction',
-          'function': "transfer_public",
-          'broadcast': true,
-          'imports': {},
           'params': {
             'authorization': data.authorization,
-            'fee_authorization': data.feeAuthorization,
             'program': data.program,
-          }
-        }));
+            'fee_authorization': data.feeAuthorization,
+            'function': "transfer_public",
+            'broadcast': true,
+            'imports': {},
+          },
+        },
+      ),
+    );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 

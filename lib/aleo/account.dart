@@ -68,8 +68,8 @@ class AleoAccount {
     );
     return AleoDelegateTransferData.public(
       authorization: result[0],
-      feeAuthorization: result[2],
       program: result[1],
+      feeAuthorization: result[2],
     );
   }
 
