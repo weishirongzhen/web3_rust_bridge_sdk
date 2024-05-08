@@ -1,3 +1,7 @@
+## 0.0.7
+
+*  add ios sim x86_64
+
 ## 0.0.6
 
 *  add ios plugin config
