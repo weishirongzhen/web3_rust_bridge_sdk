@@ -6,7 +6,7 @@
 	<dict>
 		<key>Frameworks/libcurl.a</key>
 		<data>
-		I5sSKK56pIOyjbzDxES3tKYgarE=
+		Ef8BHSZWpo87skuiHAtqoUQIFvc=
 		</data>
 		<key>Headers/rust_lib_web3_rust_bridge-umbrella.h</key>
 		<data>
@@ -20,10 +20,6 @@
 		<data>
 		JclC9b1rDm6ho1L/LXB+4GllTYk=
 		</data>
-		<key>libcurl.a</key>
-		<data>
-		s0Vs3B3d7dm2lez33DrFGPCUr7E=
-		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -31,7 +27,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SSpHrpJ3wSJrnFoyEVu92tmOQp3uTwgDKk6eZpcUGuU=
+			Eci6YqT9netiRg+gSOXONF7XavcPhqg0rTR2B3i3Jeg=
 			</data>
 		</dict>
 		<key>Headers/rust_lib_web3_rust_bridge-umbrella.h</key>
@@ -46,13 +42,6 @@
 			<key>hash2</key>
 			<data>
 			VOLA0Cc7ea6QLKEbfNODkhkuMnDKrKu8oIo65THdZXc=
-			</data>
-		</dict>
-		<key>libcurl.a</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			lvrhwy36yfaXuBqeJ6K13zKbTiz4gvD/VAmfnZfffyo=
 			</data>
 		</dict>
 	</dict>
